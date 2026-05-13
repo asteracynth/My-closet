@@ -128,15 +128,25 @@ export default function SettingsPage() {
       <PageHeader title="Settings" />
 
       <div className="card p-4 sm:p-5 mb-4">
-        <h3 className="font-semibold text-lavender-700 mb-3 flex items-center gap-2">
-          <User size={16} /> Account
-        </h3>
-        <div className="text-sm">
-          <div className="text-xs uppercase tracking-wide text-lavender-500">Signed in as</div>
-          <div className="text-lavender-700 font-medium">{email || '—'}</div>
-          {isAdmin && (
-            <span className="chip bg-blush-100 text-blush-700 mt-2">Admin</span>
-          )}
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <h3 className="font-semibold text-lavender-700 mb-3 flex items-center gap-2">
+              <User size={16} /> Account
+            </h3>
+            <div className="text-sm">
+              <div className="text-xs uppercase tracking-wide text-lavender-500">Signed in as</div>
+              <div className="text-lavender-700 font-medium truncate">{email || '—'}</div>
+              {isAdmin && (
+                <span className="chip bg-blush-100 text-blush-700 mt-2">Admin</span>
+              )}
+            </div>
+          </div>
+          <button
+            className="btn-secondary text-sm shrink-0 lg:hidden"
+            onClick={handleLogout}
+          >
+            <LogOut size={14} /> Log out
+          </button>
         </div>
       </div>
 
