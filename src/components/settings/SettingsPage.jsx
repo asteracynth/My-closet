@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Download, Upload, Trash2, Lock, LogOut, Database, Loader2, User } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Download, Upload, Trash2, Lock, LogOut, Database, Loader2, User, Users } from 'lucide-react';
 import PageHeader from '../shared/PageHeader.jsx';
 import Modal from '../shared/Modal.jsx';
 import { useAuth } from '../../hooks/useAuth.js';
@@ -17,7 +17,7 @@ import { clearWearLogs } from '../../db/wearLogDB.js';
 import { supabase } from '../../lib/supabase.js';
 
 export default function SettingsPage() {
-  const { changePassword, logout, email } = useAuth();
+  const { changePassword, logout, email, isAdmin } = useAuth();
   const { push } = useToast();
   const navigate = useNavigate();
   const fileInput = useRef(null);
@@ -134,8 +134,22 @@ export default function SettingsPage() {
         <div className="text-sm">
           <div className="text-xs uppercase tracking-wide text-lavender-500">Signed in as</div>
           <div className="text-lavender-700 font-medium">{email || '—'}</div>
+          {isAdmin && (
+            <span className="chip bg-blush-100 text-blush-700 mt-2">Admin</span>
+          )}
         </div>
       </div>
+
+      {isAdmin && (
+        <div className="card p-4 sm:p-5 mb-4">
+          <h3 className="font-semibold text-lavender-700 mb-3 flex items-center gap-2">
+            <Users size={16} /> Admin tools
+          </h3>
+          <Link to="/admin/users" className="btn-secondary w-full justify-center">
+            <Users size={16} /> Manage users
+          </Link>
+        </div>
+      )}
 
       <div className="card p-4 sm:p-5 mb-4">
         <h3 className="font-semibold text-lavender-700 mb-3 flex items-center gap-2">

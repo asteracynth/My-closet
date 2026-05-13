@@ -68,11 +68,14 @@ export function useAuth() {
     if (error) throw error;
   }, [session]);
 
+  const isAdmin = session?.user?.app_metadata?.is_admin === true;
+
   return {
     loading,
     authed: !!session,
     user: session?.user ?? null,
     email: session?.user?.email ?? null,
+    isAdmin,
     signUp,
     login,
     logout,

@@ -1,5 +1,14 @@
 import { NavLink } from 'react-router-dom';
-import { Home, Shirt, Layers, CalendarDays, BarChart3, Settings, LogOut } from 'lucide-react';
+import {
+  Home,
+  Shirt,
+  Layers,
+  CalendarDays,
+  BarChart3,
+  Settings,
+  LogOut,
+  Users,
+} from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth.js';
 
 const navs = [
@@ -11,8 +20,12 @@ const navs = [
   { to: '/settings', label: 'Settings', icon: Settings },
 ];
 
+const adminNavs = [
+  { to: '/admin/users', label: 'Users', icon: Users },
+];
+
 export default function Sidebar() {
-  const { logout } = useAuth();
+  const { logout, isAdmin } = useAuth();
   return (
     <aside className="hidden lg:flex flex-col w-64 shrink-0 border-r border-lavender-100 bg-white/60 backdrop-blur min-h-screen p-5">
       <div className="flex items-center gap-2 mb-8">
@@ -45,6 +58,32 @@ export default function Sidebar() {
             </NavLink>
           </li>
         ))}
+
+        {isAdmin && (
+          <>
+            <li className="pt-3 pb-1 px-3 text-[10px] uppercase tracking-wider text-lavender-400">
+              Admin
+            </li>
+            {adminNavs.map(({ to, label, icon: Icon }) => (
+              <li key={to}>
+                <NavLink
+                  to={to}
+                  className={({ isActive }) =>
+                    [
+                      'flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-200',
+                      isActive
+                        ? 'bg-blush-100 text-blush-700'
+                        : 'text-lavender-500 hover:bg-blush-50 hover:text-blush-700',
+                    ].join(' ')
+                  }
+                >
+                  <Icon size={18} />
+                  {label}
+                </NavLink>
+              </li>
+            ))}
+          </>
+        )}
       </ul>
 
       <button

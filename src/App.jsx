@@ -4,6 +4,7 @@ import { ToastProvider } from './hooks/useToast.jsx';
 import SetupPage from './components/auth/SetupPage.jsx';
 import LoginPage from './components/auth/LoginPage.jsx';
 import ProtectedRoute from './components/auth/ProtectedRoute.jsx';
+import AdminRoute from './components/auth/AdminRoute.jsx';
 
 import Layout from './components/shared/Layout.jsx';
 
@@ -21,6 +22,7 @@ import LogForm from './components/log/LogForm.jsx';
 
 import StatsPage from './components/stats/StatsPage.jsx';
 import SettingsPage from './components/settings/SettingsPage.jsx';
+import UsersPage from './components/admin/UsersPage.jsx';
 
 export default function App() {
   return (
@@ -52,6 +54,15 @@ export default function App() {
 
           <Route path="/stats" element={<StatsPage />} />
           <Route path="/settings" element={<SettingsPage />} />
+
+          <Route
+            path="/admin/users"
+            element={
+              <AdminRoute>
+                <UsersPage />
+              </AdminRoute>
+            }
+          />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
